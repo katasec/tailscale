@@ -68,12 +68,9 @@ eval $myCmd
 
 
 
-# tailscale up --authkey=$KEY --advertise-exit-node
-
-
-# # Inifinite loop
-# while true; 
-# do 
-#     echo "$(date), Sleeping 30 seconds..."
-#     sleep 30
-# done
+# Run Inifinite loop to keep container alive
+while true; 
+do 
+    echo "$(date), Sleeping 30 seconds..."
+    sleep 30
+done
