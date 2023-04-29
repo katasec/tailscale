@@ -42,7 +42,16 @@ function add_avertise_routes() {
         echo "Will addvertise the provided routes in env var ADVERTISE_ROUTES: $ADVERTISE_ROUTES"
         myCmd+=" --advertise-routes=$ADVERTISE_ROUTES"
     fi
+}
 
+function add_machine_name() {
+    if [ -z "$MACHINE_NAME" ]; 
+    then 
+        echo "No routes were requested to be advertised"; 
+    else 
+        echo "Will use MACHINE_NAME: $MACHINE_NAME"
+        myCmd+=" --hostname=$MACHINE_NAME"
+    fi
 }
 
 # ----------------------------------------------------------------------------------------------------------------
@@ -58,6 +67,8 @@ add_exit_node
 # Configure advertise_routes
 add_avertise_routes
 
+# Configure tailscale machine name
+add_machine_name
 
 # Start tailscale daemon with user mode networking
 tailscaled --tun=userspace-networking --socks5-server=localhost:1055 &
@@ -65,8 +76,6 @@ tailscaled --tun=userspace-networking --socks5-server=localhost:1055 &
 # Output and Run tailscale command
 echo $myCmd
 eval $myCmd
-
-
 
 # Run Inifinite loop to keep container alive
 while true; 
